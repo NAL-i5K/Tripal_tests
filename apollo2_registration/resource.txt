@@ -1,0 +1,7 @@
+*** Settings ***
+Library           SeleniumLibrary    10     
+Library     Collections
+
+*** Variables ***
+${url}
+${browser}        headlesschrome
