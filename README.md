@@ -1,4 +1,4 @@
-# Tripal_tests
+# tripal_tests
 
 ## Introduction
 
