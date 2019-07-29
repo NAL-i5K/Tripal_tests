@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import argparse
+import os
+import sys
 import unittest
 from selenium import webdriver
 import time
@@ -11,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import json
 import requests
+import psycopg2
 
 #from pyunitreport import HTMLTestRunner
 #Chrome version 73.0.3683.86, ChromeDriver 73.0.3683.68
@@ -19,15 +21,29 @@ import requests
 #Driver should put in the path of python3.6 or python2.7
 
 class ApolloRegisterTestCase(unittest.TestCase):
+    #Declaration
+    DBUSER = "Tony"      
+    TESTURL = "i5kurl"
+    DBHOST = "i5khost"
+    TESTDB = "i5kdb"
+
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.get(args.url)
-        print(args.url+'/web-apollo-registration')
+        self.driver.get(self.TESTURL)
+        print(self.TESTURL)
 
     #namespace must be test....
     def test_register(self):
+        #Initialize-clear-table(testmail)
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        cur=connection.cursor()
+        cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        print (cur.statusmessage)
+        print ('Initialize')
+        connection.commit()
+        connection.close()
         driver=self.driver
         name_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         name_element.send_keys("TEST BOT")
@@ -68,18 +84,13 @@ class ApolloRegisterTestCase(unittest.TestCase):
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
         print ('Button_click')
-        
-        #Get error message
-        # error_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        # print (error_message.encode('utf-8'))
-        # print ('----------------------------------------------------------------------')
 
         #Get success message
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[3]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
-            print ('failed')
+            exit()
 
         print ('----------------------------------------------------------------------')
 
@@ -88,23 +99,28 @@ class ApolloRegisterTestCase(unittest.TestCase):
 
 
 class ApolloServerTestCase(unittest.TestCase):
+    LOGIN="GmodLogin"
+    APPROVE="GmodApprove"
+    SITEUSER="GmodSiteUser"
+    SITEPASS="GmodSitePassword"
+
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.get(args.url+'/user/login')
-        print(args.url+'/user/login')
+        self.driver.get(self.LOGIN)
+        print(self.LOGIN)
 
     #namespace must be test....
     def test_approval(self):
         driver=self.driver
         username_element = driver.find_element_by_xpath("//*[@id='edit-name']")
-        username_element.send_keys("siteadmin")
+        username_element.send_keys(self.SITEUSER)
         print ('username_done')
 
         password_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
-        password_element.send_keys("s1t3@admin")
-        print ('email_done')
+        password_element.send_keys(self.SITEPASS)
+        print ('password_done')
 
         #Math question
         text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
@@ -127,7 +143,8 @@ class ApolloServerTestCase(unittest.TestCase):
         login_button.click()
         print ('Login_done')
 
-        self.driver.get(args.url+'/admin/structure/webapollo/users2')
+        #Move to approve page
+        self.driver.get(self.APPROVE)
         edit_hyper = driver.find_elements_by_link_text('Edit')[0]
         edit_hyper.click()
         print ('redirect to siteadmin_page')
@@ -147,14 +164,17 @@ class ApolloServerTestCase(unittest.TestCase):
         if approve_message:
             print (approve_message+'...success')
         else:
-            print ('failed')        
+            exit()        
 
         print ('----------------------------------------------------------------------')
     def tearDown(self):
         self.driver.quit()
 
-#Check_databse
+#Check_database
 class ApolloVerificationTestCase(unittest.TestCase):
+    DBUSER = "Tony"
+    DBHOST = "i5khost"
+    TESTDB = "i5kdb"
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -183,40 +203,40 @@ class ApolloVerificationTestCase(unittest.TestCase):
         driver.save_screenshot("screenshotapollo.png")
         driver.quit()
 
-        #curl -i -X POST -H 'Content-Type: application/json' -d '{"username": "Chia-Tung.Wu@ars.usda.gov", "password": "Newstand5Mesonic", "name" : "Chia-Tung.Wu@ars.usda.gov"}' https://apollo.nal.usda.gov/apollo/user/loadUsers
-        # headers = {
-        # 'Content-Type': 'application/json',
-        # }
-        # data = '{"username": "i5k-user-admin@i5k.admin", "password": "i5k2user3admin", "name" : "Chia-Tung.Wu@ars.usda.gov"}'
-        # response = requests.post('https://apollo.nal.usda.gov/apollo/user/loadUsers', headers=headers, data=data)
-        # json = response.text
-        # print (json)
-        # if 'organismPermissions' in json:
-        #     print ('Verification_done')
-
-        #delete_user_api
-        headers = {
-        'Content-Type': 'application/json',
-        }
-        data = '{"username": "i5k-user-admin@i5k.admin", "password": "i5k2admin3password", "userToDelete": "Chia-Tung.Wu@ars.usda.gov"}'
-        response = requests.post('https://apollo.nal.usda.gov/apollo/user/deleteUser', headers=headers, data=data)
-        json= response.text
-        print (json)
+        #check_user
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        cur=connection.cursor()
+        cur.execute("select * from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        row=cur.fetchall()
+        if row:
+            print (row)
+        else:
+            print ('Cannot find user in webapollo_users')
+            exit()
+        #delete_user_from_table
+        cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        print (cur.statusmessage)
+        connection.commit()
+        connection.close()
 
     def tearDown(self):
         self.driver.quit()
+    
+if __name__ == '__main__':  
+    #get variables
+    ApolloRegisterTestCase.DBUSER = os.environ.get('DBUSER', ApolloRegisterTestCase.DBUSER)            
+    ApolloRegisterTestCase.DBHOST = os.environ.get('DBHOST', ApolloRegisterTestCase.DBHOST)
+    ApolloRegisterTestCase.TESTDB = os.environ.get('TESTDB', ApolloRegisterTestCase.TESTDB) 
+    ApolloRegisterTestCase.TESTURL = os.environ.get('TESTURL', ApolloRegisterTestCase.TESTURL)  
 
-def get_parsed_args():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('-u','--url', type=str, help='test_website')
-    parser.add_argument('-a','--admin', type=str, help='username')
-    parser.add_argument('-p','--password', type=str, help='password')
-    args = parser.parse_args()
-    return args
+    ApolloServerTestCase.LOGIN = os.environ.get('LOGIN', ApolloServerTestCase.LOGIN)
+    ApolloServerTestCase.APPROVE = os.environ.get('APPROVE', ApolloServerTestCase.APPROVE)
+    ApolloServerTestCase.SITEUSER = os.environ.get('SITEUSER', ApolloServerTestCase.SITEUSER)
+    ApolloServerTestCase.SITEPASS = os.environ.get('SITEPASS', ApolloServerTestCase.SITEPASS)
 
-if __name__ == '__main__':
-    get_parsed_args()
+    ApolloVerificationTestCase.DBUSER = os.environ.get('DBUSER', ApolloVerificationTestCase.DBUSER) 
+    ApolloVerificationTestCase.DBHOST = os.environ.get('DBHOST', ApolloVerificationTestCase.DBHOST)
+    ApolloVerificationTestCase.TESTDB = os.environ.get('TESTDB', ApolloVerificationTestCase.TESTDB)
+
     unittest.main()
-    #psql -c "delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'"  -h gmod-stage-node1.nal.usda.gov -U postgres new_theme
-
 
