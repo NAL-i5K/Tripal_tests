@@ -59,7 +59,12 @@ class RegisterTestCase(unittest.TestCase):
 
         #Get error message
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
-        print (success_message.encode('utf-8'))
+
+        if success_message:
+            print (success_message.encode('utf-8'))
+        
+        else:
+            exit()
 
     def tearDown(self):
         self.driver.quit()
@@ -114,7 +119,10 @@ class ContactTestCase(unittest.TestCase):
         
         #success message i5k:contact:"/html/body/div[2]/div/section/div[2]"
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[2]").text
-        print (success_message.encode('utf-8'))
+        if success_message:
+            print (success_message.encode('utf-8'))
+        else:
+            exit()
 
     def tearDown(self):
         self.driver.quit()
