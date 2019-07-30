@@ -87,7 +87,7 @@ class RequestTestCase(unittest.TestCase):
         print ('species_done')
 
         taxid_element = driver.find_element_by_xpath("//*[@id='edit-ncbi-taxid']")
-        taxid_element.send_keys("TEST TAXID")
+        taxid_element.send_keys("101010")
         print ('taxid_done')
 
         common_element = driver.find_element_by_xpath("//*[@id='edit-common-name']")
