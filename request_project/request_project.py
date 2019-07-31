@@ -258,17 +258,17 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         genome_assembly_element.click()
         print ('genome_assembly_done')
 
-        urlclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-uffu']/legend/a")
-        urlclick_assembly_element.click()
-        print ('urlclick_done')
+        # urlclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-uffu']/legend/a")
+        # urlclick_assembly_element.click()
+        # print ('urlclick_done')
     
         sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
-        url_element.send_keys("https://gmod-stage.nal.usda.gov")
-        print ('url_done')
+        # url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
+        # url_element.send_keys("https://gmod-stage.nal.usda.gov")
+        # print ('url_done')
 
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
         toronto_element.send_keys("No")
