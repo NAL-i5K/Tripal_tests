@@ -329,7 +329,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         
         driver.implicitly_wait(10)
         success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        print (success_message)
+        print (success_message.encode('utf-8')+'...success')
         #Genome set information
         #Mapped dataset
 
