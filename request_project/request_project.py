@@ -225,6 +225,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         self.driver.get('https://gmod-stage.nal.usda.gov/user/logout')
         print ('logout_done')
 
+        #switch user
         self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
         testusername_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         testusername_element.send_keys(self.TESTUSER)
@@ -233,6 +234,11 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         testpassword_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
         testpassword_element.send_keys(self.TESTPASS)
         print ('testword_done')
+
+        #Login button
+        testuserlogin_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
+        testuserlogin_button.click()
+        print ('testuserlogin_done')
 
         #submit a dataset
         self.driver.get('https://gmod-stage.nal.usda.gov/datasets/submit-a-dataset')
