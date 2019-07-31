@@ -329,16 +329,38 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         
         driver.implicitly_wait(10)
         success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        print (success_message.encode('utf-8')+'...success')
+        if success_message:
+            print (success_message.encode('utf-8')+'...success')
+        else:
+            exit()
         #Genome set information
         #Mapped dataset
 
-        # if success_message:
-        #     print (success_message+'...success')
-        # else:
-        #     exit()        
+    def tearDown(self):
+        self.driver.quit()
 
-        # print ('----------------------------------------------------------------------')
+class TestDxcleanoutTestCase(unittest.TestCase):
+    DBUSER = "Tony"
+    DBHOST = "i5khost"
+    TESTDB = "i5kdb"
+    def setUp(self):
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+
+    #namespace must be test....
+    def test_TestDxcleanout(self):
+        #delete user from request table
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        cur=connection.cursor()
+        cur.execute("delete from ds_request_project where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        print (cur.statusmessage)
+        #delete dataset from ds_submissions
+        cur.execute("delete from ds_submissions where dataset_version like '%10.0.0%'")
+        print (cur.statusmessage)
+        connection.commit()
+        connection.close()
+
     def tearDown(self):
         self.driver.quit()
     
@@ -357,10 +379,9 @@ if __name__ == '__main__':
     TestDrupalApprovalTestCase.SITEUSER = os.environ.get('SITEUSER', TestDrupalApprovalTestCase.SITEUSER)
     TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS) 
 
-
-    # ApolloVerificationTestCase.DBUSER = os.environ.get('DBUSER', ApolloVerificationTestCase.DBUSER) 
-    # ApolloVerificationTestCase.DBHOST = os.environ.get('DBHOST', ApolloVerificationTestCase.DBHOST)
-    # ApolloVerificationTestCase.TESTDB = os.environ.get('TESTDB', ApolloVerificationTestCase.TESTDB)
+    TestDxcleanoutTestCase.DBHOST = os.environ.get('DBHOST', TestDxcleanoutTestCase.DBHOST)
+    TestDxcleanoutTestCase.TESTDB = os.environ.get('TESTDB', TestDxcleanoutTestCase.TESTDB)
+    TestDxcleanoutTestCase.DBUSER = os.environ.get('DBUSER', TestDxcleanoutTestCase.DBUSER)
 
     unittest.main()
 
