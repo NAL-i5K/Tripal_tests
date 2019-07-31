@@ -23,9 +23,8 @@ import psycopg2
 class RequestTestCase(unittest.TestCase):
     #Declaration  
     TESTURL = "i5kurl"
-    SITEUSER="GmodSiteUser"
-    SITEPASS="GmodSitePassword"
-
+    TESTUSER="GmodTESTUser"
+    TESTPASS="GmodTESTPassword"
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -48,11 +47,11 @@ class RequestTestCase(unittest.TestCase):
         #new request login
         driver=self.driver
         username_element = driver.find_element_by_xpath("//*[@id='edit-name']")
-        username_element.send_keys(self.SITEUSER)
+        username_element.send_keys(self.TESTUSER)
         print ('username_done')
 
         password_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
-        password_element.send_keys(self.SITEPASS)
+        password_element.send_keys(self.TESTPASS)
         print ('password_done')
         #Math question
         text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
@@ -166,7 +165,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
     LOGIN="GmodLogin"
     APPROVE="GmodApprove"
     SITEUSER="GmodSiteUser"
-    SITEPASS="GmodSitePassword"
+    SITEPASS='GmodSitePass'
+    TESTUSER="GmodTESTUser"
+    TESTPASS="GmodTESTPassword"
 
     def setUp(self):
         chrome_options = Options()
@@ -221,6 +222,19 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         save_button.click()
         print ('Save_done')
 
+        #switch_user
+        logout_element = driver.find_element_by_xpath("//*[@id='admin-menu-account']/li[1]/a")
+        logout_element.click()
+        print ('logout_done')
+        self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
+        testusername_element = driver.find_element_by_xpath("//*[@id='edit-name']")
+        testusername_element.send_keys(self.TESTUSER)
+        print ('testusername_done')
+
+        testpassword_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
+        testpassword_element.send_keys(self.TESTPASS)
+        print ('testword_done')
+
         #submit a dataset
         self.driver.get('https://gmod-stage.nal.usda.gov/datasets/submit-a-dataset')
         
@@ -271,7 +285,6 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('toronto_done')
 
         #Genome assembly information
-
         background_element = driver.find_element_by_xpath("//*[@id='edit-description']") 
         background_element.send_keys("Test_background")
         print ('background_done')
@@ -367,8 +380,8 @@ class TestDxcleanoutTestCase(unittest.TestCase):
 if __name__ == '__main__':  
     #get variables
     RequestTestCase.TESTURL = os.environ.get('TESTURL', RequestTestCase.TESTURL) 
-    RequestTestCase.SITEUSER = os.environ.get('SITEUSER', RequestTestCase.SITEUSER)
-    RequestTestCase.SITEPASS = os.environ.get('SITEPASS', RequestTestCase.SITEPASS) 
+    RequestTestCase.TESTUSER = os.environ.get('TESTUSER', RequestTestCase.TESTUSER)
+    RequestTestCase.TESTPASS = os.environ.get('TESTPASS', RequestTestCase.TESTPASS) 
     
     TestDatabaseTestCase.DBHOST = os.environ.get('DBHOST', TestDatabaseTestCase.DBHOST)
     TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
@@ -378,10 +391,12 @@ if __name__ == '__main__':
     TestDrupalApprovalTestCase.APPROVE = os.environ.get('APPROVE', TestDrupalApprovalTestCase.APPROVE)
     TestDrupalApprovalTestCase.SITEUSER = os.environ.get('SITEUSER', TestDrupalApprovalTestCase.SITEUSER)
     TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS) 
+    TestDrupalApprovalTestCase.TESTUSER = os.environ.get('TESTUSER', TestDrupalApprovalTestCase.TESTUSER)
+    TestDrupalApprovalTestCase.TESTPASS = os.environ.get('TESTPASS', TestDrupalApprovalTestCase.TESTPASS)
 
     TestDxcleanoutTestCase.DBHOST = os.environ.get('DBHOST', TestDxcleanoutTestCase.DBHOST)
     TestDxcleanoutTestCase.TESTDB = os.environ.get('TESTDB', TestDxcleanoutTestCase.TESTDB)
     TestDxcleanoutTestCase.DBUSER = os.environ.get('DBUSER', TestDxcleanoutTestCase.DBUSER)
-
+    #testaccount:testrobot,password:Test-robot.tony
     unittest.main()
 
