@@ -21,11 +21,8 @@ import psycopg2
 #Driver should put in the path of python3.6 or python2.7
 
 class RequestTestCase(unittest.TestCase):
-    #Declaration
-    # DBUSER = "Tony"      
+    #Declaration  
     TESTURL = "i5kurl"
-    # DBHOST = "i5khost"
-    # TESTDB = "i5kdb"
     SITEUSER="GmodSiteUser"
     SITEPASS="GmodSitePassword"
 
@@ -127,32 +124,6 @@ class RequestTestCase(unittest.TestCase):
         submit_button.click()
         print ('Button_click')
 
-
-
-        #Math question
-        # text=driver.find_element_by_xpath("//*[@id='web-apollo-registration']/div/div[6]/div[1]/span").text
-        # question=str(text)
-        # number=[]
-        # print (text)
-        # for n in question.split():
-        #     if n.isdigit():
-        #         number.append(n)
-
-        # answer=int(number[0])+int(number[1])
-        # answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
-        # answer_field.send_keys(answer)
-        # print (answer)
-        # print ('Math_done')
-
-        #Get success message
-        # success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[3]").text
-        # if success_message:
-        #     print (success_message.encode('utf-8')+'...success')
-        # else:
-        #     exit()
-
-        # print ('----------------------------------------------------------------------')
-
     def tearDown(self):
         self.driver.quit()
 
@@ -230,65 +201,66 @@ class RequestTestCase(unittest.TestCase):
 #         self.driver.quit()
 
 #Check_database
-# class ApolloVerificationTestCase(unittest.TestCase):
-#     DBUSER = "Tony"
-#     DBHOST = "i5khost"
-#     TESTDB = "i5kdb"
-#     def setUp(self):
-#         chrome_options = Options()
-#         chrome_options.add_argument("--headless")
-#         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-#         self.driver.maximize_window()
-#         self.driver.get('http://apollo.nal.usda.gov/apollo')
-#         print('Test:http://apollo.nal.usda.gov/apollo')
+class TestDatabaseTestCase(unittest.TestCase):
+    DBUSER = "Tony"
+    DBHOST = "i5khost"
+    TESTDB = "i5kdb"
+    def setUp(self):
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        # self.driver.maximize_window()
+        # self.driver.get('http://apollo.nal.usda.gov/apollo')
+        print('Test:'+self.DBHOST)
 
-#     #namespace must be test....
-#     def test_Verification(self):
-#         driver=self.driver
-#         driver.implicitly_wait(10)
-#         username_element = driver.find_element_by_xpath("//*[@id='formName']")
-#         username_element.send_keys("Chia-Tung.Wu@ars.usda.gov")
-#         print ('username_done')
+    #namespace must be test....
+    def test_TestDatabase(self):
+        # driver=self.driver
+        # driver.implicitly_wait(10)
+        # username_element = driver.find_element_by_xpath("//*[@id='formName']")
+        # username_element.send_keys("Chia-Tung.Wu@ars.usda.gov")
+        # print ('username_done')
 
-#         #Apollo_password
-#         password_element = driver.find_element_by_id("formPassword")
-#         password_element.send_keys("Newstand5Mesonic")
-#         print ('password_done')
+        # #Apollo_password
+        # password_element = driver.find_element_by_id("formPassword")
+        # password_element.send_keys("Newstand5Mesonic")
+        # print ('password_done')
         
-#         #Apollo_login
-#         login_button = driver.find_element_by_xpath("//*[@id='loginDialogId']/div/table/tbody/tr[2]/td[2]/div/form/fieldset/div[1]/div[6]/div[2]/button")
-#         login_button.click()
-#         print ('Apollo_login_done')
-#         driver.save_screenshot("screenshotapollo.png")
-#         driver.quit()
+        # #Apollo_login
+        # login_button = driver.find_element_by_xpath("//*[@id='loginDialogId']/div/table/tbody/tr[2]/td[2]/div/form/fieldset/div[1]/div[6]/div[2]/button")
+        # login_button.click()
+        # print ('Apollo_login_done')
+        # driver.save_screenshot("screenshotapollo.png")
+        # driver.quit()
 
-#         #check_user
-#         connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
-#         cur=connection.cursor()
-#         cur.execute("select * from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
-#         row=cur.fetchall()
-#         if row:
-#             print (row)
-#         else:
-#             print ('Cannot find user in webapollo_users')
-#             exit()
-#         #delete_user_from_table
-#         cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
-#         print (cur.statusmessage)
-#         connection.commit()
-#         connection.close()
+        #check_user
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        cur=connection.cursor()
+        #cur.execute("select * from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        cur.execute("select id, uid, genus, species, fullname, email status from ds_request_project")
+        row=cur.fetchall()
+        if row:
+            print (row)
+        else:
+            print ('Cannot find user in webapollo_users')
+        #delete_user_from_table
+        #cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        #print (cur.statusmessage)
+        connection.commit()
+        connection.close()
 
-    # def tearDown(self):
-    #     self.driver.quit()
+    def tearDown(self):
+        self.driver.quit()
     
 if __name__ == '__main__':  
     #get variables
-    # RequestTestCase.DBUSER = os.environ.get('DBUSER', RequestTestCase.DBUSER)            
-    # RequestTestCase.DBHOST = os.environ.get('DBHOST', RequestTestCase.DBHOST)
-    # RequestTestCase.TESTDB = os.environ.get('TESTDB', RequestTestCase.TESTDB) 
     RequestTestCase.TESTURL = os.environ.get('TESTURL', RequestTestCase.TESTURL) 
     RequestTestCase.SITEUSER = os.environ.get('SITEUSER', RequestTestCase.SITEUSER)
     RequestTestCase.SITEPASS = os.environ.get('SITEPASS', RequestTestCase.SITEPASS) 
+    
+    TestDatabaseTestCase.DBHOST = os.environ.get('DBHOST', TestDatabaseTestCase.DBHOST)
+    TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
+    TestDatabaseTestCase.DBUSER = os.environ.get('DBUSER', TestDatabaseTestCase.DBUSER)
 
 
     # ApolloServerTestCase.LOGIN = os.environ.get('LOGIN', ApolloServerTestCase.LOGIN)
