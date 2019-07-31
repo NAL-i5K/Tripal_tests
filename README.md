@@ -19,6 +19,6 @@ All automated tests for this repository must be executed on Jenkins CI.
 * Python 
   * Quick start: `python apollo2_registration/apollo2_registration.py` 
   
-### Run the contact_register_test: 
+### Run the request_project_test: 
 * Python 
   * Quick start: `python request_project/request_project.py` 
