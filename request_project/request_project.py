@@ -258,11 +258,15 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         genome_assembly_element.click()
         print ('genome_assembly_done')
 
+        urlclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-uffu']/legend/a")
+        urlclick_assembly_element.click()
+        print ('urlclick_done')
+    
         sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        url_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
+        url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
         url_element.send_keys("https://gmod-stage.nal.usda.gov")
         print ('url_done')
 
@@ -317,10 +321,18 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         othernote_element.send_keys("Test_othernote")
         print ('othernote_done')
 
+        sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
+        sumbit_data_element.click()
+        print ('sumbit_data_done')
+
+        print ('----------------------------------------------------------------------')
+        
+        driver.implicitly_wait(10)
+        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        print (success_message)
         #Genome set information
         #Mapped dataset
 
-        # success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
         # if success_message:
         #     print (success_message+'...success')
         # else:
