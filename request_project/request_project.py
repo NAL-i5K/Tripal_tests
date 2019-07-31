@@ -172,8 +172,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.get(self.LOGIN)
-        print(self.LOGIN)
+        self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
 
     #namespace must be test....
     def test_approval(self):
@@ -336,9 +335,10 @@ if __name__ == '__main__':
     TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
     TestDatabaseTestCase.DBUSER = os.environ.get('DBUSER', TestDatabaseTestCase.DBUSER)
 
-
-    # ApolloServerTestCase.LOGIN = os.environ.get('LOGIN', ApolloServerTestCase.LOGIN)
-    # ApolloServerTestCase.APPROVE = os.environ.get('APPROVE', ApolloServerTestCase.APPROVE)
+    # TestDrupalApprovalTestCase.LOGIN = os.environ.get('LOGIN', TestDrupalApprovalTestCase.LOGIN)
+    TestDrupalApprovalTestCase.APPROVE = os.environ.get('APPROVE', TestDrupalApprovalTestCase.APPROVE)
+    TestDrupalApprovalTestCase.SITEUSER = os.environ.get('SITEUSER', TestDrupalApprovalTestCase.SITEUSER)
+    TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS) 
 
 
     # ApolloVerificationTestCase.DBUSER = os.environ.get('DBUSER', ApolloVerificationTestCase.DBUSER) 
