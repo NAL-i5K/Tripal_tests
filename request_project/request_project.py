@@ -254,6 +254,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         publish_element_select.send_keys("No")
         print ('publish_done')
 
+        genome_assembly_element = driver.find_element_by_xpath("//*[@id='edit-assembly']/legend/a")
+        genome_assembly_element.click()
+        print ('genome_assembly_done')
+
         sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         sha_element.send_keys("0123456789")
         print ('sha_done')
@@ -267,8 +271,6 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('toronto_done')
 
         #Genome assembly information
-        genome_assembly_element = driver.find_element_by_xpath("//*[@id='edit-assembly']/legend/a")
-        genome_assembly_element.click()
 
         background_element = driver.find_element_by_xpath("//*[@id='edit-description']") 
         background_element.send_keys("Test_background")
