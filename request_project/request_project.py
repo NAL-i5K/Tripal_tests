@@ -267,6 +267,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('toronto_done')
 
         #Genome assembly information
+        genome_assembly_element = driver.find_element_by_xpath("//*[@id='edit-assembly']/legend/a")
+        genome_assembly_element.click()
+
         background_element = driver.find_element_by_xpath("//*[@id='edit-description']") 
         background_element.send_keys("Test_background")
         print ('background_done')
