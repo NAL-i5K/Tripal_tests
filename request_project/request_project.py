@@ -222,10 +222,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         save_button.click()
         print ('Save_done')
 
-        #switch_user
-        logout_element = driver.find_element_by_xpath("//*[@id='admin-menu-account']/li[1]/a")
-        logout_element.click()
+        self.driver.get('https://gmod-stage.nal.usda.gov/user/logout')
         print ('logout_done')
+
         self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
         testusername_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         testusername_element.send_keys(self.TESTUSER)
