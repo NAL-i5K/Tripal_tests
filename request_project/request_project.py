@@ -320,11 +320,11 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         #Genome set information
         #Mapped dataset
 
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        if success_message:
-            print (success_message+'...success')
-        else:
-            exit()        
+        # success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        # if success_message:
+        #     print (success_message+'...success')
+        # else:
+        #     exit()        
 
         # print ('----------------------------------------------------------------------')
     def tearDown(self):
