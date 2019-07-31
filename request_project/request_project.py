@@ -127,79 +127,6 @@ class RequestTestCase(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-
-# class ApolloServerTestCase(unittest.TestCase):
-#     LOGIN="GmodLogin"
-#     APPROVE="GmodApprove"
-#     SITEUSER="GmodSiteUser"
-#     SITEPASS="GmodSitePassword"
-
-#     def setUp(self):
-#         chrome_options = Options()
-#         chrome_options.add_argument("--headless")
-#         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-#         self.driver.get(self.LOGIN)
-#         print(self.LOGIN)
-
-#     #namespace must be test....
-#     def test_approval(self):
-#         driver=self.driver
-#         username_element = driver.find_element_by_xpath("//*[@id='edit-name']")
-#         username_element.send_keys(self.SITEUSER)
-#         print ('username_done')
-
-#         password_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
-#         password_element.send_keys(self.SITEPASS)
-#         print ('password_done')
-
-#         #Math question
-#         text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
-#         print (text)
-#         question=str(text)
-#         number=[]
-
-#         for n in question.split():
-#             if n.isdigit():
-#                 number.append(n)
-
-#         answer=int(number[0])+int(number[1])
-#         answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
-#         answer_field.send_keys(answer)
-#         print (answer)
-#         print ('Math_done')
-
-#         #Login button
-#         login_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
-#         login_button.click()
-#         print ('Login_done')
-
-#         #Move to approve page
-#         self.driver.get(self.APPROVE)
-#         edit_hyper = driver.find_elements_by_link_text('Edit')[0]
-#         edit_hyper.click()
-#         print ('redirect to siteadmin_page')
-        
-#         #Radio button
-#         approve_button = driver.find_element_by_css_selector("input#edit-web-apollo2-table-status-1")
-#         approve_button.click()
-#         print ('Approve_done')
-
-#         #Save button
-#         save_button = driver.find_element_by_xpath("//*[@id='edit-web-apollo2-table-submit']")
-#         save_button.click()
-#         print ('Save_done')
-
-#         #Approve message
-#         approve_message = driver.find_element_by_xpath("//*[@id='content']/table[2]/tbody/tr[1]").text
-#         if approve_message:
-#             print (approve_message+'...success')
-#         else:
-#             exit()        
-
-#         print ('----------------------------------------------------------------------')
-#     def tearDown(self):
-#         self.driver.quit()
-
 #Check_database
 class TestDatabaseTestCase(unittest.TestCase):
     DBUSER = "Tony"
@@ -215,24 +142,6 @@ class TestDatabaseTestCase(unittest.TestCase):
 
     #namespace must be test....
     def test_TestDatabase(self):
-        # driver=self.driver
-        # driver.implicitly_wait(10)
-        # username_element = driver.find_element_by_xpath("//*[@id='formName']")
-        # username_element.send_keys("Chia-Tung.Wu@ars.usda.gov")
-        # print ('username_done')
-
-        # #Apollo_password
-        # password_element = driver.find_element_by_id("formPassword")
-        # password_element.send_keys("Newstand5Mesonic")
-        # print ('password_done')
-        
-        # #Apollo_login
-        # login_button = driver.find_element_by_xpath("//*[@id='loginDialogId']/div/table/tbody/tr[2]/td[2]/div/form/fieldset/div[1]/div[6]/div[2]/button")
-        # login_button.click()
-        # print ('Apollo_login_done')
-        # driver.save_screenshot("screenshotapollo.png")
-        # driver.quit()
-
         #check_user
         connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
         cur=connection.cursor()
@@ -243,12 +152,177 @@ class TestDatabaseTestCase(unittest.TestCase):
             print (row)
         else:
             print ('Cannot find user in webapollo_users')
+            exit()
         #delete_user_from_table
         #cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
         #print (cur.statusmessage)
         connection.commit()
         connection.close()
 
+    def tearDown(self):
+        self.driver.quit()
+
+class TestDrupalApprovalTestCase(unittest.TestCase):
+    LOGIN="GmodLogin"
+    APPROVE="GmodApprove"
+    SITEUSER="GmodSiteUser"
+    SITEPASS="GmodSitePassword"
+
+    def setUp(self):
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver.get(self.LOGIN)
+        print(self.LOGIN)
+
+    #namespace must be test....
+    def test_approval(self):
+        driver=self.driver
+        username_element = driver.find_element_by_xpath("//*[@id='edit-name']")
+        username_element.send_keys(self.SITEUSER)
+        print ('username_done')
+
+        password_element = driver.find_element_by_xpath("//*[@id='edit-pass']")
+        password_element.send_keys(self.SITEPASS)
+        print ('password_done')
+
+        #Math question
+        text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        print (text)
+        question=str(text)
+        number=[]
+
+        for n in question.split():
+            if n.isdigit():
+                number.append(n)
+
+        answer=int(number[0])+int(number[1])
+        answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
+        answer_field.send_keys(answer)
+        print (answer)
+        print ('Math_done')
+
+        #Login button
+        login_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
+        login_button.click()
+        print ('Login_done')
+
+        #Move to approve page
+        self.driver.get(self.APPROVE)
+        edit_hyper = driver.find_elements_by_link_text('Edit')[0]
+        edit_hyper.click()
+        print ('redirect to siteadmin_page')
+        
+        approve_button = driver.find_element_by_css_selector("input#edit-datasets-table-status-1")
+        approve_button.click()
+        print ('Approve_done')
+
+        #Save button 
+        save_button = driver.find_element_by_xpath("//*[@id='edit-datasets-table-submit']")
+        save_button.click()
+        print ('Save_done')
+
+        #submit a dataset
+        self.driver.get('https://gmod-stage.nal.usda.gov/datasets/submit-a-dataset')
+        
+        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        organism_element_select.send_keys("Varroa destructor")
+        print ('organism_done')
+
+        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
+        dateset_element.send_keys("Test_dateset")
+        print ('dateset_done')
+
+        program_element = driver.find_element_by_xpath("//*[@id='edit-program']")
+        program_element.send_keys("Test_program")
+        print ('program_done')
+
+        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-version']")
+        dateset_element.send_keys("10.0.0")
+        print ('dataset_version_done')
+
+        dateset_element = driver.find_element_by_xpath("//*[@id='edit-version']")
+        dateset_element.send_keys("10.0.0")
+        print ('program_version_done')
+
+        #selector edit-is-download
+        download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        download_element_select.send_keys("No")
+        print ('download_done')
+
+        #selector edit-dataset-is-publish
+        publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        publish_element_select.send_keys("No")
+        print ('publish_done')
+
+        sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
+        sha_element.send_keys("0123456789")
+        print ('sha_done')
+
+        url_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
+        url_element.send_keys("https://gmod-stage.nal.usda.gov")
+        print ('url_done')
+
+        toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        toronto_element.send_keys("No")
+        print ('toronto_done')
+
+        #Genome assembly information
+        background_element = driver.find_element_by_xpath("//*[@id='edit-description']") 
+        background_element.send_keys("Test_background")
+        print ('background_done')
+        
+        image_element= driver.find_element_by_xpath("//*[@id='edit-organism-image-filename']") 
+        image_element.send_keys("Test_image")
+        print ('image_done')
+
+        curate_element_select= driver.find_element_by_xpath("//*[@id='edit-is-curate-assembly']") 
+        curate_element_select.send_keys("No")
+        print ('curate_done')
+
+        geographic_element= driver.find_element_by_xpath("//*[@id='edit-assembly-geo-location']") 
+        geographic_element.send_keys("Test_geographic")
+        print ('geographic_done')
+
+        tissues_element= driver.find_element_by_xpath("//*[@id='edit-assembly-tissues-located']") 
+        tissues_element.send_keys("Test_tissues")
+        print ('tissues_done')
+
+        #edit-assembly-gender
+        gender_element_select = driver.find_element_by_xpath("//*[@id='edit-assembly-gender']") 
+        gender_element_select.send_keys("Male")
+        print ('gender_done')
+
+        strain_element= driver.find_element_by_xpath("//*[@id='edit-data-source-strain']") 
+        strain_element.send_keys("Test_strain")
+        print ('strain_done')
+
+        notes_element= driver.find_element_by_xpath("//*[@id='edit-data-source-notes']") 
+        notes_element.send_keys("Test_notes")
+        print ('notes_done')
+
+        seqplatform_element= driver.find_element_by_xpath("//*[@id='edit-data-source-seqplatform']") 
+        seqplatform_element.send_keys("Test_seqplatform")
+        print ('seqplatforms_done')
+
+        accession_element= driver.find_element_by_xpath("//*[@id='edit-assembly-accession']") 
+        accession_element.send_keys("Test_accession")
+        print ('accession_done')
+
+        othernote_element= driver.find_element_by_xpath("//*[@id='edit-additional-other-notes']") 
+        othernote_element.send_keys("Test_othernote")
+        print ('othernote_done')
+
+        #Genome set information
+        #Mapped dataset
+
+        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        if success_message:
+            print (success_message+'...success')
+        else:
+            exit()        
+
+        # print ('----------------------------------------------------------------------')
     def tearDown(self):
         self.driver.quit()
     
