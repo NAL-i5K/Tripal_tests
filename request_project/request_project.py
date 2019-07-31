@@ -235,6 +235,22 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         testpassword_element.send_keys(self.TESTPASS)
         print ('testword_done')
 
+        #Math question
+        text2=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        print (text2)
+        question2=str(text2)
+        number2=[]
+
+        for n in question2.split():
+            if n.isdigit():
+                number2.append(n)
+
+        answer2=int(number[0])+int(number[1])
+        answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
+        answer_field.send_keys(answer2)
+        print (answer2)
+        print ('Math_done')
+
         #Login button
         testuserlogin_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         testuserlogin_button.click()
