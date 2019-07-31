@@ -237,7 +237,7 @@ class TestDatabaseTestCase(unittest.TestCase):
         connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
         cur=connection.cursor()
         #cur.execute("select * from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
-        cur.execute("select id, uid, genus, species, fullname, email status from ds_request_project")
+        cur.execute("select * from ds_request_project where email like '%Chia-Tung.Wu@ars.usda.gov%'")
         row=cur.fetchall()
         if row:
             print (row)
