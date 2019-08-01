@@ -249,7 +249,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
         answer_field.send_keys(answer2)
         print (answer2)
-        print ('Math_done')
+        print ('testuser_math_done')
 
         #Login button
         testuserlogin_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
