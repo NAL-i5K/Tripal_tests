@@ -245,7 +245,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
             if n.isdigit():
                 number2.append(n)
 
-        answer2=int(number[0])+int(number[1])
+        answer2=int(number2[0])+int(number2[1])
         answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
         answer_field.send_keys(answer2)
         print (answer2)
