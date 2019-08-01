@@ -407,9 +407,9 @@ if __name__ == '__main__':
     RequestTestCase.TESTURL = os.environ.get('TESTURL', RequestTestCase.TESTURL) 
     RequestTestCase.TESTUSER = os.environ.get('TESTUSER', RequestTestCase.TESTUSER)
     RequestTestCase.TESTPASS = os.environ.get('TESTPASS', RequestTestCase.TESTPASS)
-    RequestTestCase.DBHOST = os.environ.get('DBHOST', RequestTestCaseTestCase.DBHOST)
-    RequestTestCase.TESTDB = os.environ.get('TESTDB', RequestTestCaseTestCase.TESTDB)
-    RequestTestCase.DBUSER = os.environ.get('DBUSER', RequestTestCaseTestCase.DBUSER)
+    RequestTestCase.DBHOST = os.environ.get('DBHOST', RequestTestCase.DBHOST)
+    RequestTestCase.TESTDB = os.environ.get('TESTDB', RequestTestCase.TESTDB)
+    RequestTestCase.DBUSER = os.environ.get('DBUSER', RequestTestCase.DBUSER)
     
     TestDatabaseTestCase.DBHOST = os.environ.get('DBHOST', TestDatabaseTestCase.DBHOST)
     TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
