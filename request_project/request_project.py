@@ -29,21 +29,21 @@ class RequestTestCase(unittest.TestCase):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        #https://gmod-stage.nal.usda.gov/user/login?destination=datasets/request-project
         self.driver.get(self.TESTURL)
         print(self.TESTURL)
 
     #namespace must be test....
     def test_request(self):
         #Initialize-clear-table(testmail)
-        # connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
-        # cur=connection.cursor()
-        # cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
-        # print (cur.statusmessage)
-        # print ('Initialize')
-        # connection.commit()
-        # connection.close()
-
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        cur=connection.cursor()
+        cur.execute("delete from ds_request_project where email like '%Chia-Tung.Wu@ars.usda.gov%'")
+        print (cur.statusmessage)
+        #delete dataset from ds_submissions
+        cur.execute("delete from ds_submissions where dataset_version like '%10.0.0%'")
+        print (cur.statusmessage)
+        connection.commit()
+        connection.close()
         #new request login
         driver=self.driver
         username_element = driver.find_element_by_xpath("//*[@id='edit-name']")
@@ -122,6 +122,7 @@ class RequestTestCase(unittest.TestCase):
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
         print ('Button_click')
+        print ('--------------------------------------------------------------------------------')
 
     def tearDown(self):
         self.driver.quit()
@@ -157,6 +158,7 @@ class TestDatabaseTestCase(unittest.TestCase):
         #print (cur.statusmessage)
         connection.commit()
         connection.close()
+        print ('--------------------------------------------------------------------------------')
 
     def tearDown(self):
         self.driver.quit()
@@ -224,6 +226,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
 
         self.driver.get('https://gmod-stage.nal.usda.gov/user/logout')
         print ('logout_done')
+        print ('------------------------Switch User------------------------------------------')
 
         #switch user
         self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
@@ -358,13 +361,11 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
         sumbit_data_element.click()
         print ('sumbit_data_done')
-
-        print ('----------------------------------------------------------------------')
-        
         driver.implicitly_wait(10)
         success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
+            print ('--------------------------------------------------------------------------------')
         else:
             exit()
         #Genome set information
