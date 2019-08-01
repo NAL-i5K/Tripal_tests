@@ -306,7 +306,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         urlclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-uffu']/legend/a")
         urlclick_assembly_element.click()
         print ('urlclick_done')
-        
+
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
         toronto_element.send_keys("No")
         print ('toronto_done')
@@ -488,7 +488,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('toronto_done')
         
         #Mapped dataset information 
-        geolocation_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-geo-locatio']")
+        geolocation_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-geo-location']")
         geolocation_element.send_keys("101010")
         print ('geolocation_done')
 
