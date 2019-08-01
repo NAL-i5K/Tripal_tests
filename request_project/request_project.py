@@ -125,7 +125,7 @@ class RequestTestCase(unittest.TestCase):
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
         print ('Button_click')
-        print ('--------------------------------------------------------------------------------')
+        print ('---------------------------test_request_end----------------------------------------------')
 
     def tearDown(self):
         self.driver.quit()
@@ -141,7 +141,7 @@ class TestDatabaseTestCase(unittest.TestCase):
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         # self.driver.maximize_window()
         # self.driver.get('http://apollo.nal.usda.gov/apollo')
-        print('Test:'+self.DBHOST)
+        print('Check Database:'+self.DBHOST)
 
     #namespace must be test....
     def test_TestDatabase(self):
@@ -154,31 +154,32 @@ class TestDatabaseTestCase(unittest.TestCase):
         if row:
             print (row)
         else:
-            print ('Cannot find user in webapollo_users')
+            print ('Cannot find user in ds_request_project')
             exit()
         #delete_user_from_table
         #cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
         #print (cur.statusmessage)
         connection.commit()
         connection.close()
-        print ('--------------------------------------------------------------------------------')
+        print ('---------------------------test_database_end-----------------------------------------------')
 
     def tearDown(self):
         self.driver.quit()
 
 class TestDrupalApprovalTestCase(unittest.TestCase):
-    LOGIN="GmodLogin"
+    SIGNIN="GmodSign"
+    LOGOUT='GmodLogout'
     APPROVE="GmodApprove"
     SITEUSER="GmodSiteUser"
     SITEPASS='GmodSitePass'
     TESTUSER="GmodTESTUser"
     TESTPASS="GmodTESTPassword"
-
+    DATASETURL='GmodDataSetUrl'
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
+        self.driver.get(self.SIGNIN)
 
     #namespace must be test....
     def test_approval(self):
@@ -227,12 +228,12 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         save_button.click()
         print ('Save_done')
 
-        self.driver.get('https://gmod-stage.nal.usda.gov/user/logout')
+        self.driver.get(self.LOGOUT)
         print ('logout_done')
-        print ('------------------------Switch User------------------------------------------')
+        print ('---------------------------change_user-----------------------------------------------')
 
         #switch user
-        self.driver.get('https://gmod-stage.nal.usda.gov/user/login')
+        self.driver.get(self.SIGNIN)
         testusername_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         testusername_element.send_keys(self.TESTUSER)
         print ('testusername_done')
@@ -263,7 +264,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('testuserlogin_done')
 
         #submit a dataset
-        self.driver.get('https://gmod-stage.nal.usda.gov/datasets/submit-a-dataset')
+        self.driver.get(self.DATASETURL)
         
         organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
         organism_element_select.send_keys("Varroa destructor")
@@ -415,12 +416,15 @@ if __name__ == '__main__':
     TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
     TestDatabaseTestCase.DBUSER = os.environ.get('DBUSER', TestDatabaseTestCase.DBUSER)
 
-    # TestDrupalApprovalTestCase.LOGIN = os.environ.get('LOGIN', TestDrupalApprovalTestCase.LOGIN)
+    TestDrupalApprovalTestCase.SIGNIN = os.environ.get('SIGNIN', TestDrupalApprovalTestCase.SIGNIN)
+    TestDrupalApprovalTestCase.LOGOUT = os.environ.get('LOGOUT', TestDrupalApprovalTestCase.LOGOUT)
     TestDrupalApprovalTestCase.APPROVE = os.environ.get('APPROVE', TestDrupalApprovalTestCase.APPROVE)
     TestDrupalApprovalTestCase.SITEUSER = os.environ.get('SITEUSER', TestDrupalApprovalTestCase.SITEUSER)
     TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS) 
     TestDrupalApprovalTestCase.TESTUSER = os.environ.get('TESTUSER', TestDrupalApprovalTestCase.TESTUSER)
     TestDrupalApprovalTestCase.TESTPASS = os.environ.get('TESTPASS', TestDrupalApprovalTestCase.TESTPASS)
+    TestDrupalApprovalTestCase.DATASETURL = os.environ.get('DATASETURL', TestDrupalApprovalTestCase.DATASETURL)
+    
 
     TestDxcleanoutTestCase.DBHOST = os.environ.get('DBHOST', TestDxcleanoutTestCase.DBHOST)
     TestDxcleanoutTestCase.TESTDB = os.environ.get('TESTDB', TestDxcleanoutTestCase.TESTDB)
