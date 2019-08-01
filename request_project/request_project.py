@@ -526,7 +526,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         else:
             exit()
 
-        
+        print ('---------------------------Clear Data-----------------------------------------------')
 
     def tearDown(self):
         self.driver.quit()
