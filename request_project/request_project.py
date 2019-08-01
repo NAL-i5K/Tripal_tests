@@ -356,7 +356,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         othernote_element= driver.find_element_by_xpath("//*[@id='edit-additional-other-notes']") 
         othernote_element.send_keys("Test_othernote")
         print ('othernote_done')
-        
+
         driver.implicitly_wait(5)
         url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
         url_element.send_keys("https://gmod-stage.nal.usda.gov")
@@ -366,7 +366,8 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        #/html/body/div[2]/div/div[2]/div[1]
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
@@ -436,7 +437,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
@@ -523,7 +524,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
