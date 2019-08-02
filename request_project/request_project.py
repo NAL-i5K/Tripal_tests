@@ -357,7 +357,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         othernote_element.send_keys("Test_othernote")
         print ('othernote_done')
 
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(10)
         url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
         url_element.send_keys("https://gmod-stage.nal.usda.gov")
         print ('url_done')
@@ -428,7 +428,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         ogs_element_select.send_keys("Yes")
         print ('ogs_done')
 
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(10)
         url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
         url_element.send_keys("https://gmod-stage.nal.usda.gov")
         print ('url_done')
@@ -515,7 +515,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         ncbisra_element.send_keys("ncbisra")
         print ('ncbisra_done')
 
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(10)
         url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
         url_element.send_keys("https://gmod-stage.nal.usda.gov")
         print ('url_done')
