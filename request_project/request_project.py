@@ -366,8 +366,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
-        #/html/body/div[2]/div/div[2]/div[1]
+        if self.DATASETURL="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        else:
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
@@ -436,7 +438,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        if self.DATASETURL="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        else:
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
@@ -523,7 +528,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sumbit_data_element.click()
         print ('sumbit_data_done')
         driver.implicitly_wait(10)
-        success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        if self.DATASETURL="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        else:
+            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
         if success_message:
             print (success_message.encode('utf-8')+'...success')
         else:
