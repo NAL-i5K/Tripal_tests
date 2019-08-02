@@ -411,7 +411,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        ftpclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend/a")
+        ftpclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
         ftpclick_assembly_element.click()
         print ('ftpclick_done')
 
@@ -482,8 +482,8 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        ftpclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend/a")
-        ftpclick_assembly_element.click()
+        ftp_click_third_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
+        ftp_click_third_element.click()
         print ('ftpclick_done')
 
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
@@ -516,8 +516,8 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('ncbisra_done')
 
         driver.implicitly_wait(10)
-        ftp_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
-        ftp_element.send_keys("ftpname")
+        ftp_again_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
+        ftp_again_element.send_keys("ftpname")
         print ('ftp_done')
 
         sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
