@@ -482,9 +482,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        ftp_click_third_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
-        ftp_click_third_element.click()
-        print ('ftpclick_done')
+        # ftp_click_third_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
+        # ftp_click_third_element.click()
+        # print ('ftpclick_done')
 
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
         toronto_element.send_keys("No")
@@ -515,10 +515,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         ncbisra_element.send_keys("ncbisra")
         print ('ncbisra_done')
 
-        driver.implicitly_wait(10)
-        ftp_again_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
-        ftp_again_element.send_keys("ftpname")
-        print ('ftp_done')
+        # driver.implicitly_wait(10)
+        # ftp_again_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
+        # ftp_again_element.send_keys("ftpname")
+        # print ('ftp_done')
 
         sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
         sumbit_data_element.click()
