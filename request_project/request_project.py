@@ -379,6 +379,10 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         organism_element_select.send_keys("Varroa destructor")
         print ('organism_done')
 
+        ftpclick_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
+        ftpclick_element.click()
+        print ('ftpclick_done')
+
         dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
         dateset_element.send_keys("Test_dateset")
         print ('dateset_done')
@@ -411,10 +415,6 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        ftpclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
-        ftpclick_assembly_element.click()
-        print ('ftpclick_done')
-
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
         toronto_element.send_keys("No")
         print ('toronto_done')
@@ -428,7 +428,6 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         ogs_element_select.send_keys("Yes")
         print ('ogs_done')
 
-        driver.implicitly_wait(10)
         ftp_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
         ftp_element.send_keys("ftpname")
         print ('ftp_done')
