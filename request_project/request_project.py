@@ -411,9 +411,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         sha_element.send_keys("0123456789")
         print ('sha_done')
 
-        urlclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-uffu']/legend/a")
-        urlclick_assembly_element.click()
-        print ('urlclick_done')
+        ftpclick_assembly_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend/a")
+        ftpclick_assembly_element.click()
+        print ('ftpclick_done')
 
         toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
         toronto_element.send_keys("No")
@@ -429,9 +429,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('ogs_done')
 
         driver.implicitly_wait(10)
-        url_element = driver.find_element_by_xpath("//*[@id='edit-fileurl']")
-        url_element.send_keys("https://gmod-stage.nal.usda.gov")
-        print ('url_done')
+        ftp_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
+        ftp_element.send_keys("ftpname")
+        print ('ftp_done')
 
         sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
         sumbit_data_element.click()
