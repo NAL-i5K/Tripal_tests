@@ -375,167 +375,167 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         else:
             exit()
 
-        print ('---------------------------Gene Set Information-----------------------------------------------')
-        self.driver.get(self.DATASETURL)
-        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
-        organism_element_select.send_keys("Varroa destructor")
-        print ('organism_done')
+        # print ('---------------------------Gene Set Information-----------------------------------------------')
+        # self.driver.get(self.DATASETURL)
+        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        # organism_element_select.send_keys("Varroa destructor")
+        # print ('organism_done')
 
-        ftpclick_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
-        ftpclick_element.click()
-        print ('ftpclick_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
-        dateset_element.send_keys("Test_dateset")
-        print ('dateset_done')
-
-        program_element = driver.find_element_by_xpath("//*[@id='edit-program']")
-        program_element.send_keys("Test_program")
-        print ('program_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-version']")
-        dateset_element.send_keys("10.0.0")
-        print ('dataset_version_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-version']")
-        dateset_element.send_keys("10.0.0")
-        print ('program_version_done')
-
-        download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
-        download_element_select.send_keys("No")
-        print ('download_done')
-
-        publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
-        publish_element_select.send_keys("No")
-        print ('publish_done')
-
-        geneset_element = driver.find_element_by_xpath("//*[@id='edit-gene-set']/legend/a")
-        geneset_element.click()
-        print ('geneset_done')
-    
-        sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
-        sha_element.send_keys("0123456789")
-        print ('sha_done')
-
-        toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
-        toronto_element.send_keys("No")
-        print ('toronto_done')
-        
-        #Gene set information
-        trackname_element = driver.find_element_by_xpath("//*[@id='edit-gene-set-descriptive-track']")
-        trackname_element.send_keys("test_trackname")
-        print ('trackname_done')
-
-        ogs_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ogs']") 
-        ogs_element_select.send_keys("Yes")
-        print ('ogs_done')
-
-        ftp_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
-        ftp_element.send_keys("ftpname")
-        print ('ftp_done')
-
-        sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
-        sumbit_data_element.click()
-        print ('sumbit_data_done')
-        driver.implicitly_wait(10)
-        if self.DATASETURL=="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
-            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
-        else:
-            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        if success_message:
-            print (success_message.encode('utf-8')+'...success')
-        else:
-            exit()
-
-        print ('---------------------------Mapped dataset-----------------------------------------------')
-        
-        self.driver.get(self.DATASETURL)
-        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
-        organism_element_select.send_keys("Varroa destructor")
-        print ('organism_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
-        dateset_element.send_keys("Test_dateset")
-        print ('dateset_done')
-
-        program_element = driver.find_element_by_xpath("//*[@id='edit-program']")
-        program_element.send_keys("Test_program")
-        print ('program_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-version']")
-        dateset_element.send_keys("10.0.0")
-        print ('dataset_version_done')
-
-        dateset_element = driver.find_element_by_xpath("//*[@id='edit-version']")
-        dateset_element.send_keys("10.0.0")
-        print ('program_version_done')
-
-        download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
-        download_element_select.send_keys("No")
-        print ('download_done')
-
-        publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
-        publish_element_select.send_keys("No")
-        print ('publish_done')
-
-        mapped_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset']/legend/a")
-        mapped_element.click()
-        print ('mapped_dataset_done')
-    
-        sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
-        sha_element.send_keys("0123456789")
-        print ('sha_done')
-
-        # ftp_click_third_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
-        # ftp_click_third_element.click()
+        # ftpclick_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
+        # ftpclick_element.click()
         # print ('ftpclick_done')
 
-        toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
-        toronto_element.send_keys("No")
-        print ('toronto_done')
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
+        # dateset_element.send_keys("Test_dateset")
+        # print ('dateset_done')
+
+        # program_element = driver.find_element_by_xpath("//*[@id='edit-program']")
+        # program_element.send_keys("Test_program")
+        # print ('program_done')
+
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-version']")
+        # dateset_element.send_keys("10.0.0")
+        # print ('dataset_version_done')
+
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-version']")
+        # dateset_element.send_keys("10.0.0")
+        # print ('program_version_done')
+
+        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        # download_element_select.send_keys("No")
+        # print ('download_done')
+
+        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        # publish_element_select.send_keys("No")
+        # print ('publish_done')
+
+        # geneset_element = driver.find_element_by_xpath("//*[@id='edit-gene-set']/legend/a")
+        # geneset_element.click()
+        # print ('geneset_done')
+    
+        # sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
+        # sha_element.send_keys("0123456789")
+        # print ('sha_done')
+
+        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        # toronto_element.send_keys("No")
+        # print ('toronto_done')
         
-        #Mapped dataset information 
-        geolocation_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-geo-location']")
-        geolocation_element.send_keys("101010")
-        print ('geolocation_done')
+        # #Gene set information
+        # trackname_element = driver.find_element_by_xpath("//*[@id='edit-gene-set-descriptive-track']")
+        # trackname_element.send_keys("test_trackname")
+        # print ('trackname_done')
 
-        tissues_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-tissues-located']") 
-        tissues_element.send_keys("Yes")
-        print ('tissues_done')
+        # ogs_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ogs']") 
+        # ogs_element_select.send_keys("Yes")
+        # print ('ogs_done')
 
-        sex_element_select = driver.find_element_by_xpath("//*[@id='edit-mapped-gender']") 
-        sex_element_select.send_keys("Male")
-        print ('sex_done')
-
-        sequencemothod_element= driver.find_element_by_xpath("//*[@id='edit-sequence-platform']") 
-        sequencemothod_element.send_keys("sequencemothod")
-        print ('sequencemothod_done')
-
-        descriptive_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-descriptive-track']") 
-        descriptive_element.send_keys("descriptive")
-        print ('descriptive_track_done')
-
-        ncbisra_element= driver.find_element_by_xpath("//*[@id='edit-mapped-data-source-url']") 
-        ncbisra_element.send_keys("ncbisra")
-        print ('ncbisra_done')
-
-        # driver.implicitly_wait(10)
-        # ftp_again_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
-        # ftp_again_element.send_keys("ftpname")
+        # ftp_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
+        # ftp_element.send_keys("ftpname")
         # print ('ftp_done')
 
-        sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
-        sumbit_data_element.click()
-        print ('sumbit_data_done')
-        driver.implicitly_wait(10)
-        if self.DATASETURL=="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
-            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
-        else:
-            success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
-        if success_message:
-            print (success_message.encode('utf-8')+'...success')
-        else:
-            exit()
+        # sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
+        # sumbit_data_element.click()
+        # print ('sumbit_data_done')
+        # driver.implicitly_wait(10)
+        # if self.DATASETURL=="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
+        #     success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        # else:
+        #     success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        # if success_message:
+        #     print (success_message.encode('utf-8')+'...success')
+        # else:
+        #     exit()
+
+        # print ('---------------------------Mapped dataset-----------------------------------------------')
+        
+        # self.driver.get(self.DATASETURL)
+        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        # organism_element_select.send_keys("Varroa destructor")
+        # print ('organism_done')
+
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-name']")
+        # dateset_element.send_keys("Test_dateset")
+        # print ('dateset_done')
+
+        # program_element = driver.find_element_by_xpath("//*[@id='edit-program']")
+        # program_element.send_keys("Test_program")
+        # print ('program_done')
+
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-dataset-version']")
+        # dateset_element.send_keys("10.0.0")
+        # print ('dataset_version_done')
+
+        # dateset_element = driver.find_element_by_xpath("//*[@id='edit-version']")
+        # dateset_element.send_keys("10.0.0")
+        # print ('program_version_done')
+
+        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        # download_element_select.send_keys("No")
+        # print ('download_done')
+
+        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        # publish_element_select.send_keys("No")
+        # print ('publish_done')
+
+        # mapped_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset']/legend/a")
+        # mapped_element.click()
+        # print ('mapped_dataset_done')
+    
+        # sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
+        # sha_element.send_keys("0123456789")
+        # print ('sha_done')
+
+        # # ftp_click_third_element = driver.find_element_by_xpath("//*[@id='edit-ufff']/legend")
+        # # ftp_click_third_element.click()
+        # # print ('ftpclick_done')
+
+        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        # toronto_element.send_keys("No")
+        # print ('toronto_done')
+        
+        # #Mapped dataset information 
+        # geolocation_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-geo-location']")
+        # geolocation_element.send_keys("101010")
+        # print ('geolocation_done')
+
+        # tissues_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-tissues-located']") 
+        # tissues_element.send_keys("Yes")
+        # print ('tissues_done')
+
+        # sex_element_select = driver.find_element_by_xpath("//*[@id='edit-mapped-gender']") 
+        # sex_element_select.send_keys("Male")
+        # print ('sex_done')
+
+        # sequencemothod_element= driver.find_element_by_xpath("//*[@id='edit-sequence-platform']") 
+        # sequencemothod_element.send_keys("sequencemothod")
+        # print ('sequencemothod_done')
+
+        # descriptive_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-descriptive-track']") 
+        # descriptive_element.send_keys("descriptive")
+        # print ('descriptive_track_done')
+
+        # ncbisra_element= driver.find_element_by_xpath("//*[@id='edit-mapped-data-source-url']") 
+        # ncbisra_element.send_keys("ncbisra")
+        # print ('ncbisra_done')
+
+        # # driver.implicitly_wait(10)
+        # # ftp_again_element = driver.find_element_by_xpath("//*[@id='edit-fileftp']")
+        # # ftp_again_element.send_keys("ftpname")
+        # # print ('ftp_done')
+
+        # sumbit_data_element = driver.find_element_by_xpath("//*[@id='edit-submit']")
+        # sumbit_data_element.click()
+        # print ('sumbit_data_done')
+        # driver.implicitly_wait(10)
+        # if self.DATASETURL=="https://i5k.nal.usda.gov/datasets/submit-a-dataset":
+        #     success_message = driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
+        # else:
+        #     success_message = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]").text
+        # if success_message:
+        #     print (success_message.encode('utf-8')+'...success')
+        # else:
+        #     exit()
 
         print ('---------------------------Clear Data-----------------------------------------------')
 
