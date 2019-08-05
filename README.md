@@ -2,7 +2,7 @@
 
 
 ## Introduction
-Test utilities based on [robotframework](http://robotframework.org/) using [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) to test i5k contact page(https://i5k.nal.usda.gov/contact) and register page(https://i5k.nal.usda.gov/register/project-dataset/account). For more information, please refer  the intern summary document.
+Test utilities based on [robotframework](http://robotframework.org/) using [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) to test i5k contact page(https://i5k.nal.usda.gov/contact) and register page(https://i5k.nal.usda.gov/register/project-dataset/account). For more information, please refer to the summary document.
 
 ## Prerequisite
 All automated tests for this repository must be executed on Jenkins CI.
