@@ -45,6 +45,9 @@ class RequestTestCase(unittest.TestCase):
         #delete dataset from ds_submissions
         cur.execute("delete from ds_submissions where dataset_version like '%10.0.0%'")
         print (cur.statusmessage)
+        # delete the new organism nodes
+        cur.execute("delete from node where type = 'chado_organism' and title = 'TEST GENUS TEST SPECIES'")
+        print (cur.statusmessage)
         connection.commit()
         connection.close()
         #new request login
