@@ -3,7 +3,7 @@ Library  SeleniumLibrary
 
 *** Test Cases ***
 Registration Testing
-    Open Browser  https://gmod-stage.nal.usda.gov/register/project-dataset/account  headlesschrome
+    Open Browser  http://drupalvm.stage/register/project-dataset/account  headlesschrome
     Wait and Input  name=name  Test_Robot
     Wait and Input  xpath=//*[@id='edit-email']  monica.poelchau@ars.usda.gov
     Wait and Input  name=affiliation  Test_Robot
@@ -11,7 +11,7 @@ Registration Testing
     [Teardown]    Close All Browsers
 
 Contact Testing
-    Open Browser  https://gmod-stage.nal.usda.gov/contact  headlesschrome
+    Open Browser  http://drupalvm.stage/contact  headlesschrome
     Wait and Input  name=name  Test_Robot
     Wait and Input  xpath=//*[@id='edit-mail']  monica.poelchau@ars.usda.gov
     Wait and Input  xpath=//*[@id='edit-subject']  Test_Robot

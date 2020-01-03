@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 #from pyunitreport import HTMLTestRunner
 #Chrome version 73.0.3683.86, ChromeDriver 73.0.3683.68
-#Firefox version:58, Driver version:geckodriver24.0 
+#Firefox version:58, Driver version:geckodriver24.0
 #IE version:11, IEDriverServer_x64_3.14.0
 #Driver should put in the path of python3.6 or python2.7
 
@@ -52,7 +52,7 @@ class RegisterTestCase(unittest.TestCase):
         answer_field.send_keys(answer)
         print (answer)
         print ('Math_done')
-        
+
         #click button
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
@@ -61,7 +61,7 @@ class RegisterTestCase(unittest.TestCase):
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/div/div[1]").text
         if success_message:
             print (success_message.encode('utf-8'))
-        
+
         else:
             exit()
 
@@ -75,6 +75,7 @@ class ContactTestCase(unittest.TestCase):
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.get('https://gmod-stage.nal.usda.gov/contact')
+
         print('Test:https://gmod-stage.nal.usda.gov/contact')
 
     #namespace must be test....
@@ -97,7 +98,7 @@ class ContactTestCase(unittest.TestCase):
         print ('Message_done')
 
         #Math question
-        text=driver.find_element_by_xpath("//*[@id='contact-site-form']/div/div[5]/div").text
+        text=driver.find_element_by_xpath("//*[@id='bootstrap-panel-body']/div[2]").text
         print (text)
         question=str(text)
         number=[]
@@ -113,10 +114,11 @@ class ContactTestCase(unittest.TestCase):
         print (answer)
         print ('Math_done')
 
+
         #click button
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
-        
+
         #success message i5k:contact:"/html/body/div[2]/div/section/div[2]"
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[3]").text
         if success_message:
