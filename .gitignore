@@ -3,3 +3,5 @@ output.xml
 report.html
 .DS_Store
 tmp/
+venv
+.venv
