@@ -1,31 +1,32 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
+#import sys
 import unittest
 from selenium import webdriver
-import time
-from selenium.webdriver.common.action_chains import ActionChains
+#import time
+#from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-import json
-import requests
+#from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.common.by import By
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.support.wait import WebDriverWait
+#import json
+#import requests
 import psycopg2
 
 #from pyunitreport import HTMLTestRunner
 #Chrome version 73.0.3683.86, ChromeDriver 73.0.3683.68
-#Firefox version:58, Driver version:geckodriver24.0 
+#Firefox version:58, Driver version:geckodriver24.0
 #IE version:11, IEDriverServer_x64_3.14.0
 #Driver should put in the path of python3.6 or python2.7
 
 class ApolloRegisterTestCase(unittest.TestCase):
     #Declaration
-    DBUSER = "Tony"      
-    TESTURL = "i5kurl"
-    DBHOST = "i5khost"
-    TESTDB = "i5kdb"
+    DBUSER = "dbuser"
+    TESTURL = "testurl"
+    DBHOST = "dbhost"
+    TESTDB = "testdb"
+    DBPW = "dbpw"
 
     def setUp(self):
         chrome_options = Options()
@@ -37,7 +38,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
     #namespace must be test....
     def test_register(self):
         #Initialize-clear-table(testmail)
-        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, password=self.DBPW, dbname=self.TESTDB)
         cur=connection.cursor()
         cur.execute("delete from webapollo_users where email like '%Chia-Tung.Wu@ars.usda.gov%'")
         print (cur.statusmessage)
@@ -53,7 +54,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
         mail_element.send_keys("Chia-Tung.Wu@ars.usda.gov")
         print ('email_done')
 
-        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']")
         organism_element_select.send_keys("Varroa destructor")
         print ('organism_select_done')
 
@@ -66,7 +67,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
         print ('Gene that you intend to annotate_done')
 
         #Math question
-        text=driver.find_element_by_xpath("//*[@id='web-apollo-registration']/div/div[6]/div[1]/span").text
+        text=driver.find_element_by_xpath("//*[@id='web-apollo-registration']/div/fieldset/div/div[2]/span").text
         question=str(text)
         number=[]
         print (text)
@@ -79,7 +80,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
         answer_field.send_keys(answer)
         print (answer)
         print ('Math_done')
-        
+
         #click button
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
         submit_button.click()
@@ -99,7 +100,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
 
 
 class ApolloServerTestCase(unittest.TestCase):
-    LOGIN="GmodLogin"
+    LOGIN="GmodURL"
     APPROVE="GmodApprove"
     SITEUSER="GmodSiteUser"
     SITEPASS="GmodSitePassword"
@@ -123,7 +124,7 @@ class ApolloServerTestCase(unittest.TestCase):
         print ('password_done')
 
         #Math question
-        text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        text=driver.find_element_by_xpath("//*[@id='user-login']/div/fieldset/div/div[2]").text
         print (text)
         question=str(text)
         number=[]
@@ -148,7 +149,7 @@ class ApolloServerTestCase(unittest.TestCase):
         edit_hyper = driver.find_elements_by_link_text('Edit')[0]
         edit_hyper.click()
         print ('redirect to siteadmin_page')
-        
+
         #Radio button
         approve_button = driver.find_element_by_css_selector("input#edit-web-apollo2-table-status-1")
         approve_button.click()
@@ -164,7 +165,7 @@ class ApolloServerTestCase(unittest.TestCase):
         if approve_message:
             print (approve_message+'...success')
         else:
-            exit()        
+            exit()
 
         print ('----------------------------------------------------------------------')
     def tearDown(self):
@@ -195,7 +196,7 @@ class ApolloVerificationTestCase(unittest.TestCase):
         password_element = driver.find_element_by_id("formPassword")
         password_element.send_keys("Newstand5Mesonic")
         print ('password_done')
-        
+
         #Apollo_login
         login_button = driver.find_element_by_xpath("//*[@id='loginDialogId']/div/table/tbody/tr[2]/td[2]/div/form/fieldset/div[1]/div[6]/div[2]/button")
         login_button.click()
@@ -221,20 +222,20 @@ class ApolloVerificationTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-    
-if __name__ == '__main__':  
+
+if __name__ == '__main__':
     #get variables
-    ApolloRegisterTestCase.DBUSER = os.environ.get('DBUSER', ApolloRegisterTestCase.DBUSER)            
+    ApolloRegisterTestCase.DBUSER = os.environ.get('DBUSER', ApolloRegisterTestCase.DBUSER)
     ApolloRegisterTestCase.DBHOST = os.environ.get('DBHOST', ApolloRegisterTestCase.DBHOST)
-    ApolloRegisterTestCase.TESTDB = os.environ.get('TESTDB', ApolloRegisterTestCase.TESTDB) 
-    ApolloRegisterTestCase.TESTURL = os.environ.get('TESTURL', ApolloRegisterTestCase.TESTURL)  
+    ApolloRegisterTestCase.TESTDB = os.environ.get('TESTDB', ApolloRegisterTestCase.TESTDB)
+    ApolloRegisterTestCase.TESTURL = os.environ.get('TESTURL', ApolloRegisterTestCase.TESTURL)
 
     ApolloServerTestCase.LOGIN = os.environ.get('LOGIN', ApolloServerTestCase.LOGIN)
     ApolloServerTestCase.APPROVE = os.environ.get('APPROVE', ApolloServerTestCase.APPROVE)
     ApolloServerTestCase.SITEUSER = os.environ.get('SITEUSER', ApolloServerTestCase.SITEUSER)
     ApolloServerTestCase.SITEPASS = os.environ.get('SITEPASS', ApolloServerTestCase.SITEPASS)
 
-    ApolloVerificationTestCase.DBUSER = os.environ.get('DBUSER', ApolloVerificationTestCase.DBUSER) 
+    ApolloVerificationTestCase.DBUSER = os.environ.get('DBUSER', ApolloVerificationTestCase.DBUSER)
     ApolloVerificationTestCase.DBHOST = os.environ.get('DBHOST', ApolloVerificationTestCase.DBHOST)
     ApolloVerificationTestCase.TESTDB = os.environ.get('TESTDB', ApolloVerificationTestCase.TESTDB)
 

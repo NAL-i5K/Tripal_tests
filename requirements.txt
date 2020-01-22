@@ -1,3 +1,5 @@
 selenium
 robotframework
 robotframework-selenium2library
+requests
+psycopg2
