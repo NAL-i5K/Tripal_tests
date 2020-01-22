@@ -1,33 +1,35 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
+#import sys
 import unittest
 from selenium import webdriver
-import time
-from selenium.webdriver.common.action_chains import ActionChains
+#import time
+#from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-import json
-import requests
+#from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.common.by import By
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.support.wait import WebDriverWait
+#import json
+#import requests
 import psycopg2
 
 #from pyunitreport import HTMLTestRunner
 #Chrome version 73.0.3683.86, ChromeDriver 73.0.3683.68
-#Firefox version:58, Driver version:geckodriver24.0 
+#Firefox version:58, Driver version:geckodriver24.0
 #IE version:11, IEDriverServer_x64_3.14.0
 #Driver should put in the path of python3.6 or python2.7
 
 class RequestTestCase(unittest.TestCase):
-    #Declaration  
-    TESTURL = "i5kurl"
-    TESTUSER="GmodTESTUser"
-    TESTPASS="GmodTESTPassword"
-    DBUSER = "Tony"
-    DBHOST = "i5khost"
-    TESTDB = "i5kdb"
+    #Declaration
+    TESTURL = "testurl"
+    TESTUSER = "GmodTESTUser"
+    TESTPASS = "GmodTESTPassword"
+    DBUSER = "dbuser"
+    DBHOST = "dbhost"
+    DBPW = "dbpw"
+    TESTDB = "testdb"
+
     def setUp(self):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -38,7 +40,7 @@ class RequestTestCase(unittest.TestCase):
     #namespace must be test....
     def test_request(self):
         #Initialize-clear-table(testmail)
-        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, dbname=self.TESTDB)
+        connection=psycopg2.connect(host=self.DBHOST, user=self.DBUSER, password=self.DBPW, dbname=self.TESTDB)
         cur=connection.cursor()
         cur.execute("delete from ds_request_project where email like '%Chia-Tung.Wu@ars.usda.gov%'")
         print (cur.statusmessage)
@@ -60,7 +62,7 @@ class RequestTestCase(unittest.TestCase):
         password_element.send_keys(self.TESTPASS)
         print ('password_done')
         #Math question
-        text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        text=driver.find_element_by_xpath("//*[@id='user-login']/div/fieldset/div/div[2]").text
         print (text)
         question=str(text)
         number=[]
@@ -100,15 +102,15 @@ class RequestTestCase(unittest.TestCase):
         dataset_element.send_keys("TEST DATASET")
         print ('dataset_done')
 
-        ncbimember_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ncbi-submitted']") 
+        ncbimember_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ncbi-submitted']")
         ncbimember_element_select.send_keys("Yes")
         print ('ncbimember_done')
 
-        reassembly_element_select = driver.find_element_by_xpath("//*[@id='edit-is-assembly']") 
+        reassembly_element_select = driver.find_element_by_xpath("//*[@id='edit-is-assembly']")
         reassembly_element_select.send_keys("Yes")
         print ('reassembly_done')
 
-        involved_element_select = driver.find_element_by_xpath("//*[@id='edit-involved-in-generation']") 
+        involved_element_select = driver.find_element_by_xpath("//*[@id='edit-involved-in-generation']")
         involved_element_select.send_keys("Yes")
         print ('involved_done')
 
@@ -221,12 +223,12 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         edit_hyper = driver.find_elements_by_link_text('Edit')[0]
         edit_hyper.click()
         print ('redirect to siteadmin_page')
-        
+
         approve_button = driver.find_element_by_css_selector("input#edit-datasets-table-status-1")
         approve_button.click()
         print ('Approve_done')
 
-        #Save button 
+        #Save button
         save_button = driver.find_element_by_xpath("//*[@id='edit-datasets-table-submit']")
         save_button.click()
         print ('Save_done')
@@ -245,7 +247,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('testword_done')
 
         #Math question
-        text2=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        text2=driver.find_element_by_xpath("//*[@id='user-login']/div/fieldset/div/div[2]").text
         print (text2)
         question2=str(text2)
         number2=[]
@@ -268,7 +270,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         #submit a dataset
         self.driver.get(self.DATASETURL)
         print ('---------------------------Test Genome Assembly-----------------------------------------------')
-        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']")
         organism_element_select.send_keys("Varroa destructor")
         print ('organism_done')
 
@@ -289,19 +291,19 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('program_version_done')
 
         #selector edit-is-download
-        download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']")
         download_element_select.send_keys("No")
         print ('download_done')
 
         #selector edit-dataset-is-publish
-        publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']")
         publish_element_select.send_keys("No")
         print ('publish_done')
 
         genome_assembly_element = driver.find_element_by_xpath("//*[@id='edit-assembly']/legend/a")
         genome_assembly_element.click()
         print ('genome_assembly_done')
-    
+
         sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         sha_element.send_keys("0123456789")
         print ('sha_done')
@@ -310,53 +312,53 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         urlclick_assembly_element.click()
         print ('urlclick_done')
 
-        toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']")
         toronto_element.send_keys("No")
         print ('toronto_done')
 
         #Genome assembly information
-        background_element = driver.find_element_by_xpath("//*[@id='edit-description']") 
+        background_element = driver.find_element_by_xpath("//*[@id='edit-description']")
         background_element.send_keys("Test_background")
         print ('background_done')
-        
-        image_element= driver.find_element_by_xpath("//*[@id='edit-organism-image-filename']") 
+
+        image_element= driver.find_element_by_xpath("//*[@id='edit-organism-image-filename']")
         image_element.send_keys("Test_image")
         print ('image_done')
 
-        curate_element_select= driver.find_element_by_xpath("//*[@id='edit-is-curate-assembly']") 
+        curate_element_select= driver.find_element_by_xpath("//*[@id='edit-is-curate-assembly']")
         curate_element_select.send_keys("No")
         print ('curate_done')
 
-        geographic_element= driver.find_element_by_xpath("//*[@id='edit-assembly-geo-location']") 
+        geographic_element= driver.find_element_by_xpath("//*[@id='edit-assembly-geo-location']")
         geographic_element.send_keys("Test_geographic")
         print ('geographic_done')
 
-        tissues_element= driver.find_element_by_xpath("//*[@id='edit-assembly-tissues-located']") 
+        tissues_element= driver.find_element_by_xpath("//*[@id='edit-assembly-tissues-located']")
         tissues_element.send_keys("Test_tissues")
         print ('tissues_done')
 
         #edit-assembly-gender
-        gender_element_select = driver.find_element_by_xpath("//*[@id='edit-assembly-gender']") 
+        gender_element_select = driver.find_element_by_xpath("//*[@id='edit-assembly-gender']")
         gender_element_select.send_keys("Male")
         print ('gender_done')
 
-        strain_element= driver.find_element_by_xpath("//*[@id='edit-data-source-strain']") 
+        strain_element= driver.find_element_by_xpath("//*[@id='edit-data-source-strain']")
         strain_element.send_keys("Test_strain")
         print ('strain_done')
 
-        notes_element= driver.find_element_by_xpath("//*[@id='edit-data-source-notes']") 
+        notes_element= driver.find_element_by_xpath("//*[@id='edit-data-source-notes']")
         notes_element.send_keys("Test_notes")
         print ('notes_done')
 
-        seqplatform_element= driver.find_element_by_xpath("//*[@id='edit-data-source-seqplatform']") 
+        seqplatform_element= driver.find_element_by_xpath("//*[@id='edit-data-source-seqplatform']")
         seqplatform_element.send_keys("Test_seqplatform")
         print ('seqplatforms_done')
 
-        accession_element= driver.find_element_by_xpath("//*[@id='edit-assembly-accession']") 
+        accession_element= driver.find_element_by_xpath("//*[@id='edit-assembly-accession']")
         accession_element.send_keys("Test_accession")
         print ('accession_done')
 
-        othernote_element= driver.find_element_by_xpath("//*[@id='edit-additional-other-notes']") 
+        othernote_element= driver.find_element_by_xpath("//*[@id='edit-additional-other-notes']")
         othernote_element.send_keys("Test_othernote")
         print ('othernote_done')
 
@@ -380,7 +382,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
 
         # print ('---------------------------Gene Set Information-----------------------------------------------')
         # self.driver.get(self.DATASETURL)
-        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']")
         # organism_element_select.send_keys("Varroa destructor")
         # print ('organism_done')
 
@@ -404,32 +406,32 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         # dateset_element.send_keys("10.0.0")
         # print ('program_version_done')
 
-        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']")
         # download_element_select.send_keys("No")
         # print ('download_done')
 
-        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']")
         # publish_element_select.send_keys("No")
         # print ('publish_done')
 
         # geneset_element = driver.find_element_by_xpath("//*[@id='edit-gene-set']/legend/a")
         # geneset_element.click()
         # print ('geneset_done')
-    
+
         # sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         # sha_element.send_keys("0123456789")
         # print ('sha_done')
 
-        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']")
         # toronto_element.send_keys("No")
         # print ('toronto_done')
-        
+
         # #Gene set information
         # trackname_element = driver.find_element_by_xpath("//*[@id='edit-gene-set-descriptive-track']")
         # trackname_element.send_keys("test_trackname")
         # print ('trackname_done')
 
-        # ogs_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ogs']") 
+        # ogs_element_select = driver.find_element_by_xpath("//*[@id='edit-is-ogs']")
         # ogs_element_select.send_keys("Yes")
         # print ('ogs_done')
 
@@ -451,9 +453,9 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         #     exit()
 
         # print ('---------------------------Mapped dataset-----------------------------------------------')
-        
+
         # self.driver.get(self.DATASETURL)
-        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']") 
+        # organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']")
         # organism_element_select.send_keys("Varroa destructor")
         # print ('organism_done')
 
@@ -473,18 +475,18 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         # dateset_element.send_keys("10.0.0")
         # print ('program_version_done')
 
-        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']") 
+        # download_element_select = driver.find_element_by_xpath("//*[@id='edit-is-download']")
         # download_element_select.send_keys("No")
         # print ('download_done')
 
-        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']") 
+        # publish_element_select = driver.find_element_by_xpath("//*[@id='edit-dataset-is-publish']")
         # publish_element_select.send_keys("No")
         # print ('publish_done')
 
         # mapped_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset']/legend/a")
         # mapped_element.click()
         # print ('mapped_dataset_done')
-    
+
         # sha_element = driver.find_element_by_xpath("//*[@id='edit-sha512']")
         # sha_element.send_keys("0123456789")
         # print ('sha_done')
@@ -493,32 +495,32 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         # # ftp_click_third_element.click()
         # # print ('ftpclick_done')
 
-        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']") 
+        # toronto_element = driver.find_element_by_xpath("//*[@id='edit-dataset-publish-field-data']")
         # toronto_element.send_keys("No")
         # print ('toronto_done')
-        
-        # #Mapped dataset information 
+
+        # #Mapped dataset information
         # geolocation_element = driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-geo-location']")
         # geolocation_element.send_keys("101010")
         # print ('geolocation_done')
 
-        # tissues_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-tissues-located']") 
+        # tissues_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-tissues-located']")
         # tissues_element.send_keys("Yes")
         # print ('tissues_done')
 
-        # sex_element_select = driver.find_element_by_xpath("//*[@id='edit-mapped-gender']") 
+        # sex_element_select = driver.find_element_by_xpath("//*[@id='edit-mapped-gender']")
         # sex_element_select.send_keys("Male")
         # print ('sex_done')
 
-        # sequencemothod_element= driver.find_element_by_xpath("//*[@id='edit-sequence-platform']") 
+        # sequencemothod_element= driver.find_element_by_xpath("//*[@id='edit-sequence-platform']")
         # sequencemothod_element.send_keys("sequencemothod")
         # print ('sequencemothod_done')
 
-        # descriptive_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-descriptive-track']") 
+        # descriptive_element= driver.find_element_by_xpath("//*[@id='edit-mapped-dataset-descriptive-track']")
         # descriptive_element.send_keys("descriptive")
         # print ('descriptive_track_done')
 
-        # ncbisra_element= driver.find_element_by_xpath("//*[@id='edit-mapped-data-source-url']") 
+        # ncbisra_element= driver.find_element_by_xpath("//*[@id='edit-mapped-data-source-url']")
         # ncbisra_element.send_keys("ncbisra")
         # print ('ncbisra_done')
 
@@ -572,16 +574,16 @@ class TestDxcleanoutTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-    
-if __name__ == '__main__':  
+
+if __name__ == '__main__':
     #get variables
-    RequestTestCase.TESTURL = os.environ.get('TESTURL', RequestTestCase.TESTURL) 
+    RequestTestCase.TESTURL = os.environ.get('TESTURL', RequestTestCase.TESTURL)
     RequestTestCase.TESTUSER = os.environ.get('TESTUSER', RequestTestCase.TESTUSER)
     RequestTestCase.TESTPASS = os.environ.get('TESTPASS', RequestTestCase.TESTPASS)
     RequestTestCase.DBHOST = os.environ.get('DBHOST', RequestTestCase.DBHOST)
     RequestTestCase.TESTDB = os.environ.get('TESTDB', RequestTestCase.TESTDB)
     RequestTestCase.DBUSER = os.environ.get('DBUSER', RequestTestCase.DBUSER)
-    
+
     TestDatabaseTestCase.DBHOST = os.environ.get('DBHOST', TestDatabaseTestCase.DBHOST)
     TestDatabaseTestCase.TESTDB = os.environ.get('TESTDB', TestDatabaseTestCase.TESTDB)
     TestDatabaseTestCase.DBUSER = os.environ.get('DBUSER', TestDatabaseTestCase.DBUSER)
@@ -590,11 +592,11 @@ if __name__ == '__main__':
     TestDrupalApprovalTestCase.LOGOUT = os.environ.get('LOGOUT', TestDrupalApprovalTestCase.LOGOUT)
     TestDrupalApprovalTestCase.APPROVE = os.environ.get('APPROVE', TestDrupalApprovalTestCase.APPROVE)
     TestDrupalApprovalTestCase.SITEUSER = os.environ.get('SITEUSER', TestDrupalApprovalTestCase.SITEUSER)
-    TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS) 
+    TestDrupalApprovalTestCase.SITEPASS = os.environ.get('SITEPASS', TestDrupalApprovalTestCase.SITEPASS)
     TestDrupalApprovalTestCase.TESTUSER = os.environ.get('TESTUSER', TestDrupalApprovalTestCase.TESTUSER)
     TestDrupalApprovalTestCase.TESTPASS = os.environ.get('TESTPASS', TestDrupalApprovalTestCase.TESTPASS)
     TestDrupalApprovalTestCase.DATASETURL = os.environ.get('DATASETURL', TestDrupalApprovalTestCase.DATASETURL)
-    
+
 
     TestDxcleanoutTestCase.DBHOST = os.environ.get('DBHOST', TestDxcleanoutTestCase.DBHOST)
     TestDxcleanoutTestCase.TESTDB = os.environ.get('TESTDB', TestDxcleanoutTestCase.TESTDB)
