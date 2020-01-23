@@ -198,7 +198,7 @@ class TestDrupalApprovalTestCase(unittest.TestCase):
         print ('password_done')
 
         #Math question
-        text=driver.find_element_by_xpath("//*[@id='user-login']/div/div[3]/div").text
+        text=driver.find_element_by_xpath("//*[@id='user-login']/div/fieldset/div/div[2]").text
         print (text)
         question=str(text)
         number=[]
