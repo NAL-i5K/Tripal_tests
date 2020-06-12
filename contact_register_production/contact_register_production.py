@@ -23,25 +23,25 @@ class RegisterTestCase(unittest.TestCase):
         driver=self.driver
         name_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         name_element.send_keys("Test_Robot_production_register")
-        print ('name_done')
+        print('name_done')
 
         mail_element = driver.find_element_by_xpath("//*[@id='edit-email']")
         mail_element.send_keys("monica.poelchau@ars.usda.gov")
-        print ('email_done')
+        print('email_done')
 
         subject_element = driver.find_element_by_xpath("//*[@id='edit-affiliation']")
         subject_element.send_keys("Test_Robot_production_register")
-        print ('Affiliation_done')
+        print('Affiliation_done')
 
         message_element = driver.find_element_by_xpath("//*[@id='edit-content']")
         message_element.send_keys("Automated_Testing_for_production_register")
-        print ('Contact_done')
+        print('Contact_done')
 
         #Math question
         text=driver.find_element_by_xpath("//*[@id='project-dataset-submission-account']/div/div[6]/div").text
         question=str(text)
         number=[]
-        print (text)
+        print(text)
         for n in question.split():
             if n.isdigit():
                 number.append(n)
@@ -50,8 +50,8 @@ class RegisterTestCase(unittest.TestCase):
 
         answer_field = driver.find_element_by_name("captcha_response")
         answer_field.send_keys(answer)
-        print (answer)
-        print ('Math_done')
+        print(answer)
+        print('Math_done')
 
         #click button
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
@@ -61,7 +61,7 @@ class RegisterTestCase(unittest.TestCase):
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[1]").text
 
         if success_message:
-            print (success_message.encode('utf-8'))
+            print((success_message.encode('utf-8')))
 
         else:
             exit()
@@ -83,23 +83,23 @@ class ContactTestCase(unittest.TestCase):
         driver=self.driver
         name_element = driver.find_element_by_xpath("//*[@id='edit-name']")
         name_element.send_keys("Test_Robot_production_contact")
-        print ('name_done')
+        print('name_done')
 
         mail_element = driver.find_element_by_xpath("//*[@id='edit-mail']")
         mail_element.send_keys("monica.poelchau@ars.usda.gov")
-        print ('email_done')
+        print('email_done')
 
         subject_element = driver.find_element_by_xpath("//*[@id='edit-subject']")
         subject_element.send_keys("Test_Robot_production_contact")
-        print ('Subject_done')
+        print('Subject_done')
 
         message_element = driver.find_element_by_xpath("//*[@id='edit-message']")
         message_element.send_keys("Automated_Testing_for_production_contact")
-        print ('Message_done')
+        print('Message_done')
 
         #Math question
         text=driver.find_element_by_xpath("//*[@id='contact-site-form']/div/fieldset/div/div[2]").text
-        print (text)
+        print(text)
         question=str(text)
         number=[]
 
@@ -110,8 +110,8 @@ class ContactTestCase(unittest.TestCase):
         answer=int(number[0])+int(number[1])
         answer_field = driver.find_element_by_xpath("//*[@id='edit-captcha-response']")
         answer_field.send_keys(answer)
-        print (answer)
-        print ('Math_done')
+        print(answer)
+        print('Math_done')
 
         #click button
         submit_button = driver.find_element_by_xpath("//*[@id='edit-submit']")
@@ -120,7 +120,7 @@ class ContactTestCase(unittest.TestCase):
         #success message i5k:contact:"/html/body/div[2]/div/section/div[2]"
         success_message=driver.find_element_by_xpath("/html/body/div[2]/div/section/div[2]").text
         if success_message:
-            print (success_message.encode('utf-8'))
+            print((success_message.encode('utf-8')))
         else:
             exit()
 
