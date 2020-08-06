@@ -51,7 +51,7 @@ class ApolloRegisterTestCase(unittest.TestCase):
         print ('Full_name_done')
 
         mail_element = driver.find_element_by_xpath("//*[@id='edit-mail']")
-        mail_element.send_keys("Chia-Tung.Wu@ars.usda.gov")
+        mail_element.send_keys("christopher.childers2@usda.gov")
         print ('email_done')
 
         organism_element_select = driver.find_element_by_xpath("//*[@id='edit-organism']")
